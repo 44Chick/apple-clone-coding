@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+html {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px
+}
+/*overflow-x: hidden 가로 스크롤 생기지 않음*/
+/*letter-spacing: -0.05em 자간 간격 줄임*/
+body {
+    overflow-x: hidden;
+    color: rgb(29, 29, 31);
+    letter-spacing: -0.05em;
+    background: white;
+}
+
+/*문단 높이*/
+p {
+    line-height: 1.6;
+}
+
+.global-nav {
+    height: 44px;
+}
+
+/*margin: 0 auto 센터 정렬을 위함(왼쪽 오른쪽 auto) 가로 센터 정렬*/
+/*display: flex, justify-content: space-between 간격 일정 조정*/
+/*세로 정렬 align-items: center => heigth 안주면 높이가 없기 때문에 정렬 x -> height를 부모와 같이 준다.*/
+.global-nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1000px;
+    height: 100%;
+    margin: 0 auto;
+}
