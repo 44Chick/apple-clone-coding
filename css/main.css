@@ -18,18 +18,51 @@ p {
     line-height: 1.6;
 }
 
+/*text-defoation : none , a 태그에 밑줄 없애는 것*/
+a {
+    color: rgb(29, 29, 31);
+    text-decoration: none;
+}
+
 .global-nav {
     height: 44px;
 }
 
+.local-nav {
+    height: 52px;
+    border-bottom: 1px solid #ddd;
+}
 /*margin: 0 auto 센터 정렬을 위함(왼쪽 오른쪽 auto) 가로 센터 정렬*/
 /*display: flex, justify-content: space-between 간격 일정 조정*/
 /*세로 정렬 align-items: center => heigth 안주면 높이가 없기 때문에 정렬 x -> height를 부모와 같이 준다.*/
+.local-nav-links,
 .global-nav-links {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     max-width: 1000px;
     height: 100%;
     margin: 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.global-nav-links {
+    justify-content: space-between;
+}
+
+/*not : 조건에 맞는 클래스는 적용하지 않겠다.*/
+.local-nav-links a:not(.product-name) {
+    margin-left: 2em;
+}
+
+.local-nav-links a {
+    font-size: 0.8rem;
+}
+
+/*남은 여백이 있으면 margin이 다 채운다는 개념.*/
+/*중앙정렬 때 margin을 auto로 주는 것도 남은 공간을 다 margin으로 채워서 중앙 정렬이 되는 것*/
+.local-nav-links .product-name {
+    font-size: 1.4em;
+    margin-right: auto;
+    font-weight: bold;
 }
