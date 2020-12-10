@@ -66,3 +66,46 @@ a {
     margin-right: auto;
     font-weight: bold;
 }
+
+/*vh : 사용자 화면의 50%를 padding주겠다.*/
+.scroll-section {
+    padding-top: 50vh
+}
+
+/* rem html이 현재 14px로 되어있는 상태 -> 4rem = 14 * 4 = 56px */
+#scroll-section-0 h1 {
+    font-size: 4rem;
+    text-align: center;
+}
+
+/*align-items: 세로 중앙 정렬 , justify-content 가로 정렬 3em : 현 폰트 사이즈의 3배 높이 */
+.main-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3em;
+    font-size: 2.5rem;
+}
+
+.main-message p {
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
+
+/* padding: 0 1rem 위아래 0 좌우 1rem*/
+.description {
+    padding: 0 1rem;
+    font-size: 1.2rem;
+    color: #888;
+}
+.description strong {
+    float: left;
+    margin-right: 0.2em;
+    font-size: 3rem;
+    color: rgb(29, 29, 31);
+
+}
+
+/* rem : root em -> html 14px로 설정했으니 14의 배수로 설정*/
+/* em : 현 클래스 혹은 현 영역의 폰트 사이즈 기준으로 배수로 설정 된다.*/
