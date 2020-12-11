@@ -93,8 +93,21 @@ a {
     text-align: center;
 }
 
+/*display: block : 박스로 설정되면서 다음줄로 넘어감*/
+.main-message small {
+    display: block;
+    margin-bottom: 0.5em;
+    font-size: 1.2rem;
+}
+
+#scroll-section-2 .main-message {
+    font-size: 3.5rem;
+}
+
 /* padding: 0 1rem 위아래 0 좌우 1rem*/
 .description {
+    max-width: 1000px;
+    margin: 0 auto;
     padding: 0 1rem;
     font-size: 1.2rem;
     color: #888;
@@ -106,6 +119,81 @@ a {
     color: rgb(29, 29, 31);
 
 }
+
+.desc-message {
+    width: 50%;
+    font-weight: bold;
+}
+
+.pin {
+    width: 1px;
+    height: 100px;
+    background: rgb(29, 29, 31);
+}
+
+.mid-message {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    font-size: 2rem;
+    color: #888;
+}
+
+.mid-message strong {
+    color: rgb(29, 29, 31)
+}
+
+.canvas-caption {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    color: #888;
+    font-size: 1.2rem;
+    /*text-align: center;*/
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 7rem;
+    color: white;;
+    background: darkorange;
+}
+
+/* width가 1024px 이상이면 css가 적용이 된다.*/
+/* 위의 css는 모바일 기준으로 했고, 웹 버전으로 맞추기 위함*/
+@media (min-width: 1024px) {
+    /* 창 크기에 따라 폰트 사이즈 변경*/
+    #scroll-section-0 h1 {
+        font-size: 9vw;
+    }
+    .main-message {
+        font-size: 4vw;
+    }
+    .description {
+        font-size: 2rem;
+    }
+    .description strong {
+        font-size: 6rem;
+    }
+    #scroll-section-2 .main-message {
+        font-size: 6vw;
+    }
+    .main-message small {
+        font-size: 1.5vw;
+    }
+    .desc-message {
+        width: 20%;
+    }
+    .mid-message {
+        font-size: 4vw;
+    }
+    .canvas-caption {
+        font-size: 2rem;
+    }
+}
+
 
 /* rem : root em -> html 14px로 설정했으니 14의 배수로 설정*/
 /* em : 현 클래스 혹은 현 영역의 폰트 사이즈 기준으로 배수로 설정 된다.*/
