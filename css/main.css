@@ -161,6 +161,8 @@ a {
     background: darkorange;
 }
 
+/* 해당 섹션만 보이게 처리*/
+/* 먼저 sticky 부분 다 안보이게 처리 후 특정 섹션만 아이디를 삽입하여 보이게 처리*/
 .sticky-elem {
     display: none;
     position: fixed;
