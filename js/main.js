@@ -4,6 +4,7 @@
 // 어디서든 접근이 가능해지기 때문에 변수에 영향줄 가능성이 있기 때문에
 // 지역 변수로 해준다.
 (() => {
+    let yOffset = 0;
     const scenInfo = [
         {
             type: 'sticky', // 세션이 고정된 위치
@@ -46,6 +47,15 @@
             info.objs.container.style.height = `${info.scrollheight}px`
         }
     }
+
+
+    function scrollLoop() {
+        // 현 스크롤 위치 ( yOffSet ) 과 각 세션의 높이 비교 시작 유무 확인
+    }
     window.addEventListener('resize', setLayout);
+    window.addEventListener('scroll', () => {
+        yOffset = window.pageYOffset // 현 스크롤 위치
+        scrollLoop();
+    })
     setLayout();
 })();
