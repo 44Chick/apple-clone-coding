@@ -44,12 +44,23 @@
     ];
 
     function setLayout() {
+        let totalScrollHeight = 0;
+        yOffset = window.pageYOffset;
         // 각 스크롤 세션의 높이 셋팅
-
         for (const info of scenInfo) {
             info.scrollheight = info.heightNum * window.innerHeight;
             info.objs.container.style.height = `${info.scrollheight}px`
+
         }
+
+        for(let i = 0; i < scenInfo.length ; i++) {
+            totalScrollHeight += scenInfo[i].scrollheight;
+            if(totalScrollHeight >= yOffset) {
+                currentScene = i;
+                break;
+            }
+        }
+        document.body.setAttribute('id', `show-scene-${currentScene}`);
     }
 
 
@@ -62,17 +73,23 @@
 
         if (yOffset > prevScrollHeight + scenInfo[currentScene].scrollheight) {
             currentScene++;
+            document.body.setAttribute('id', `show-scene-${currentScene}`);
         }
 
         if(yOffset < prevScrollHeight) {
             if (currentScene === 0) return; // 창 바운스되면서 - 되는 것 방지
             currentScene--;
+            document.body.setAttribute('id', `show-scene-${currentScene}`);
         }
     }
     window.addEventListener('resize', setLayout);
+    // window.addEventListener('DOMContentLoaded', setLayout); 와 차이
+    // load는 html 태그, 이미지, 동영상 등 모든 요소가 로드가 완료된 후 실행
+    // DOMConetentLoaded는 DOM요소 즉 html요소만 로드가 완료된 후 실행
+    window.addEventListener('load', setLayout);
+    
     window.addEventListener('scroll', () => {
         yOffset = window.pageYOffset // 현 스크롤 위치
         scrollLoop();
     })
-    setLayout();
 })();
