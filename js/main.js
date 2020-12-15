@@ -74,8 +74,14 @@
     }
 
     function playAnimation() {
+        const objs = scenInfo[currentScene].objs;
+        const values = scenInfo[currentScene].values;
+        const currentYOffset = yOffset - prevScrollHeight;
+
         switch (currentScene) {
             case 0:
+                let messageA_opacity_0 = values.messageA_opacity[0];
+                let messageA_opacity_1 = values.messageA_opacity[1];
                 break;
             case 1:
                 break;
@@ -84,6 +90,10 @@
             case 3:
                 break;
         }
+    }
+
+    function calcValues(values, currentYOffset) {
+
     }
 
     function scrollLoop() {
