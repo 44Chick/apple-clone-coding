@@ -14,8 +14,18 @@
             heightNum: 5, // 브라우저 높이의 5배로 scrollHeight 셋팅
             scrollheight: 0, // section 0 scroll 높이
             objs: {
-                container: document.querySelector('#scroll-section-0')
+                container: document.querySelector('#scroll-section-0'),
+                messageA: document.querySelector('#scroll-section-0 .main-message.a'),
+                messageB: document.querySelector('#scroll-section-0 .main-message.b'),
+                messageC: document.querySelector('#scroll-section-0 .main-message.c'),
+                messageD: document.querySelector('#scroll-section-0 .main-message.d'),
+            },
+            values: {
+                messageA_opacity: [0,1]
             }
+            // 스크롤에 따른 애니메이션 벨류값
+            // 스크롤에 따른 변수 : opacity, translate: transfor ( 투명도, y값이동 )
+
         },
         {
             type: 'nomal', // 세션이 일반 스크롤 흐름
@@ -63,6 +73,18 @@
         document.body.setAttribute('id', `show-scene-${currentScene}`);
     }
 
+    function playAnimation() {
+        switch (currentScene) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
+    }
 
     function scrollLoop() {
         // 현 스크롤 위치 ( yOffSet ) 과 각 세션의 높이 비교 시작 유무 확인
