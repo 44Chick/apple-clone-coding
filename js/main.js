@@ -80,8 +80,8 @@
 
         switch (currentScene) {
             case 0:
-                let messageA_opacity_0 = values.messageA_opacity[0];
-                let messageA_opacity_1 = values.messageA_opacity[1];
+                let messageA_opacity_in = calcValues(values.messageA_opacity, currentYOffset);
+                objs.messageA.style.opacity = messageA_opacity_in;
                 break;
             case 1:
                 break;
@@ -93,7 +93,12 @@
     }
 
     function calcValues(values, currentYOffset) {
+        let rv
+        // 현재 씬(스코롤섹션)에서 스크롤된 범위를비율로 구하기
+        let scrollRatio = currentYOffset / scenInfo[currentScene].scrollheight;
+        rv = scrollRatio * (values[1] - values[0]) + values[0];
 
+        return rv;
     }
 
     function scrollLoop() {
@@ -113,6 +118,7 @@
             currentScene--;
             document.body.setAttribute('id', `show-scene-${currentScene}`);
         }
+        playAnimation()
     }
     window.addEventListener('resize', setLayout);
     // window.addEventListener('DOMContentLoaded', setLayout); 와 차이
