@@ -21,8 +21,9 @@
                 messageD: document.querySelector('#scroll-section-0 .main-message.d'),
             },
             values: {
-                messageA_opacity: [0,1, {start: 0.1, end: 0.2}],
-                messageB_opacity: [0,1, {start: 0.3, end: 0.4}]
+                messageA_opacity_in: [0, 1, {start: 0.1, end: 0.2}],
+                messageB_opacity_in: [0, 1, {start: 0.3, end: 0.4}],
+                messageA_opacity_out: [1, 0, {start: 0.25, end: 0.3}]
             }
             // 스크롤에 따른 애니메이션 벨류값
             // 스크롤에 따른 변수 : opacity, translate: transfor ( 투명도, y값이동 )
@@ -78,11 +79,24 @@
         const objs = scenInfo[currentScene].objs;
         const values = scenInfo[currentScene].values;
         const currentYOffset = yOffset - prevScrollHeight;
+        // 현재 씬의 scrollHeight
+        const scrollHeight = scenInfo[currentScene].scrollheight;
+        const scrollRatio = currentYOffset / scrollHeight;
 
         switch (currentScene) {
             case 0:
-                let messageA_opacity_in = calcValues(values.messageA_opacity, currentYOffset);
-                objs.messageA.style.opacity = messageA_opacity_in;
+
+                // 0.22 : opacity가 나타나고 사라지는 사이의 중심값.
+                if (scrollRatio <= 0.22) {
+                    // in
+                    objs.messageA.style.opacity = calcValues(values.messageA_opacity_in, currentYOffset);
+                } else {
+                    console.log('out');
+                    // out
+                    objs.messageA.style.opacity = calcValues(values.messageA_opacity_out, currentYOffset);
+                }
+
+
                 break;
             case 1:
                 break;
@@ -98,7 +112,6 @@
         const scrollHeight = scenInfo[currentScene].scrollheight;
         // 현재 씬(스코롤섹션)에서 스크롤된 범위를비율로 구하기
         const scrollRatio = currentYOffset / scrollHeight;
-
         if (values.length === 3) {
             // start ~ end 사이에 애니메이션 실행
             const partScrollStart = values[2].start * scrollHeight;
@@ -107,7 +120,7 @@
             const partScrollHeight = partScrollEnd - partScrollStart;
 
             if (currentYOffset >= partScrollStart && currentYOffset <= partScrollEnd) {
-                rv =  (currentYOffset - partScrollStart) / partScrollHeight * (values[1]  - values[0]);
+                rv = (currentYOffset - partScrollStart) / partScrollHeight * (values[1] - values[0]) + values[0];
             } else if (currentYOffset < partScrollStart) {
                 rv = values[0];
             } else if (currentYOffset > partScrollEnd) {
