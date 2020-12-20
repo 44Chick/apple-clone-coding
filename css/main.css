@@ -83,6 +83,9 @@ a {
 
 /* rem html이 현재 14px로 되어있는 상태 -> 4rem = 14 * 4 = 56px */
 #scroll-section-0 h1 {
+    position: relative;
+    top: -10vh;
+    z-index: 5;
     font-size: 4rem;
     text-align: center;
 }
@@ -97,6 +100,7 @@ a {
     height: 3em;
     font-size: 2.5rem;
     opacity: 0;
+    width: 100%;
 }
 
 .main-message p {
@@ -188,7 +192,6 @@ a {
 .sticky-elem {
     display: none;
     position: fixed;
-    left: 0;
     with: 100%;
 }
 
