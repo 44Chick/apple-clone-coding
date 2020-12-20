@@ -22,8 +22,14 @@
             },
             values: {
                 messageA_opacity_in: [0, 1, {start: 0.1, end: 0.2}],
-                messageB_opacity_in: [0, 1, {start: 0.3, end: 0.4}],
-                messageA_opacity_out: [1, 0, {start: 0.25, end: 0.3}]
+                // messageB_opacity_in: [0, 1, {start: 0.3, end: 0.4}],
+                // 스크롤 시 살짜 올라가는 효과
+                // 20 : 단위 %, 시작점
+                // 20% 정도 내렸다가 0으로 다시 올림
+                messageA_translateY_in: [20, 0, {start: 0.1, end: 0.2}],
+
+                messageA_opacity_out: [1, 0, {start: 0.25, end: 0.3}],
+                messageA_translateY_out: [0, -20, {start: 0.25, end: 0.3}],
             }
             // 스크롤에 따른 애니메이션 벨류값
             // 스크롤에 따른 변수 : opacity, translate: transfor ( 투명도, y값이동 )
@@ -85,15 +91,20 @@
 
         switch (currentScene) {
             case 0:
-
+                const messageA_opacity_in = calcValues(values.messageA_opacity_in, currentYOffset);
+                const messageA_opacity_out = calcValues(values.messageA_opacity_out, currentYOffset);
+                const messageA_translateY_in = calcValues(values.messageA_translateY_in, currentYOffset);
+                const messageA_translateY_out = calcValues(values.messageA_translateY_out, currentYOffset);
                 // 0.22 : opacity가 나타나고 사라지는 사이의 중심값.
                 if (scrollRatio <= 0.22) {
                     // in
-                    objs.messageA.style.opacity = calcValues(values.messageA_opacity_in, currentYOffset);
+                    objs.messageA.style.opacity = messageA_opacity_in;
+                    objs.messageA.style.transform = `translateY(${messageA_translateY_in}%`;
                 } else {
                     console.log('out');
                     // out
-                    objs.messageA.style.opacity = calcValues(values.messageA_opacity_out, currentYOffset);
+                    objs.messageA.style.opacity = messageA_opacity_out;
+                    objs.messageA.style.transform = `translateY(${messageA_translateY_out}%`;
                 }
 
 

@@ -77,7 +77,8 @@ a {
 
 /*vh : 사용자 화면의 50%를 padding주겠다.*/
 .scroll-section {
-    padding-top: 50vh
+    position: relative;
+    padding-top: 50vh;
 }
 
 /* rem html이 현재 14px로 되어있는 상태 -> 4rem = 14 * 4 = 56px */
