@@ -66,9 +66,15 @@
         yOffset = window.pageYOffset;
         // 각 스크롤 세션의 높이 셋팅
         for (const info of scenInfo) {
-            info.scrollheight = info.heightNum * window.innerHeight;
-            info.objs.container.style.height = `${info.scrollheight}px`
 
+            if (info.type === 'sticky') {
+                info.scrollheight = info.heightNum * window.innerHeight;
+            } else if (info.type === 'normal') {
+                // sticky가 아닌 경우 스크롤에 따른 애니메이션이 없으니, 해당 div영역 만큼만
+                // 높이를 잡아준다.
+                info.scrollheight = info.objs.container.offsetHeight;
+            }
+            info.objs.container.style.height = `${info.scrollheight}px`
         }
 
         for(let i = 0; i < scenInfo.length ; i++) {
@@ -91,20 +97,16 @@
 
         switch (currentScene) {
             case 0:
-                const messageA_opacity_in = calcValues(values.messageA_opacity_in, currentYOffset);
-                const messageA_opacity_out = calcValues(values.messageA_opacity_out, currentYOffset);
-                const messageA_translateY_in = calcValues(values.messageA_translateY_in, currentYOffset);
-                const messageA_translateY_out = calcValues(values.messageA_translateY_out, currentYOffset);
                 // 0.22 : opacity가 나타나고 사라지는 사이의 중심값.
                 if (scrollRatio <= 0.22) {
                     // in
-                    objs.messageA.style.opacity = messageA_opacity_in;
-                    objs.messageA.style.transform = `translateY(${messageA_translateY_in}%`;
+                    objs.messageA.style.opacity = calcValues(values.messageA_opacity_in, currentYOffset);
+                    objs.messageA.style.transform = `translateY(${calcValues(values.messageA_translateY_in, currentYOffset)}%`;
                 } else {
                     console.log('out');
                     // out
-                    objs.messageA.style.opacity = messageA_opacity_out;
-                    objs.messageA.style.transform = `translateY(${messageA_translateY_out}%`;
+                    objs.messageA.style.opacity = calcValues(values.messageA_opacity_out, currentYOffset);
+                    objs.messageA.style.transform = `translateY(${calcValues(values.messageA_translateY_out, currentYOffset)}%`;
                 }
 
 
