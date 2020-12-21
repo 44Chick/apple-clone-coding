@@ -19,8 +19,13 @@
                 messageB: document.querySelector('#scroll-section-0 .main-message.b'),
                 messageC: document.querySelector('#scroll-section-0 .main-message.c'),
                 messageD: document.querySelector('#scroll-section-0 .main-message.d'),
+                canvas: document.querySelector('#video-canvas-0'),
+                context: document.querySelector('#video-canvas-0').getContext('2d'),
+                videoImages: []
             },
             values: {
+                videoImageCount: 300,
+                imageSequence: [0, 299],
                 messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
                 messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
                 messageC_opacity_in: [0, 1, { start: 0.5, end: 0.6 }],
@@ -97,6 +102,16 @@
         }
     ];
 
+    function setCanvasImages() {
+        let imgElem;
+        for (let i = 0; i < scenInfo[0].values.videoImageCount; i++) {
+            imgElem = new Image();
+            imgElem.src = `./video/001/IMG_${6726 + i}.JPG`;
+            scenInfo[0].objs.videoImages.push(imgElem);
+        }
+    }
+    setCanvasImages();
+
     function setLayout() {
         let totalScrollHeight = 0;
         yOffset = window.pageYOffset;
@@ -136,10 +151,11 @@
         // 일단 translate3d는 y축 뿐만 아니라 x, z 방향도 조재
         // translate3d는 하드웨어 가속이 보장이 되기 때문에 퍼포먼스가 좋아지게 된다.
         // 이러한 이유로 사용
-console.log(currentScene)
         switch (currentScene) {
             case 0:
-                // console.log('0 play');
+                let sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
+                objs.context.drawImage(objs.videoImages[sequence], 0, 0);
+
                 if (scrollRatio <= 0.22) {
                     // in
                     objs.messageA.style.opacity = calcValues(values.messageA_opacity_in, currentYOffset);
