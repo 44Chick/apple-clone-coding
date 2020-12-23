@@ -136,6 +136,13 @@
             }
         }
         document.body.setAttribute('id', `show-scene-${currentScene}`);
+
+        const heightRatio = window.innerHeight / 1080;
+        
+        // % : 자기 크기의 %
+        // -50% 자기 크기의 50%로 -방향으로 이동
+        // scale은 원래 자신의 크기로 left right 등 적용
+        scenInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`
     }
 
     function playAnimation() {
