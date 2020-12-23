@@ -26,6 +26,7 @@
             values: {
                 videoImageCount: 300,
                 imageSequence: [0, 299],
+                canvas_opacity: [1, 0, { start: 0.9, end: 1}],
                 messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
                 messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
                 messageC_opacity_in: [0, 1, { start: 0.5, end: 0.6 }],
@@ -162,6 +163,7 @@
             case 0:
                 let sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
                 objs.context.drawImage(objs.videoImages[sequence], 0, 0);
+                objs.canvas.style.opacity = calcValues(values.canvas_opacity, currentYOffset);
 
                 if (scrollRatio <= 0.22) {
                     // in
@@ -302,7 +304,10 @@
     // window.addEventListener('DOMContentLoaded', setLayout); 와 차이
     // load는 html 태그, 이미지, 동영상 등 모든 요소가 로드가 완료된 후 실행
     // DOMConetentLoaded는 DOM요소 즉 html요소만 로드가 완료된 후 실행
-    window.addEventListener('load', setLayout);
+    window.addEventListener('load', () => {
+        setLayout();
+        scenInfo[0].objs.context.drawImage(scenInfo[0].objs.videoImages[0], 0, 0);
+    });
     
     window.addEventListener('scroll', () => {
         yOffset = window.pageYOffset // 현 스크롤 위치

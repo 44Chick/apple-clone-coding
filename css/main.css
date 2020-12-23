@@ -209,8 +209,8 @@ a {
 /* translate3d의 %는 자신 기준,  absolute의 %는 전체 높이 기준*/
 .sticky-elem-canvas canvas {
     position: absolute;
-    top: 10%;
-    left: 10%;
+    top: 50%;
+    left: 50%;
 }
 
 #show-scene-0 #scroll-section-0 .sticky-elem,
