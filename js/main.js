@@ -99,7 +99,7 @@
             // 3
             type: 'sticky',
             heightNum: 5,
-            scrollHeight: 0,
+            scrollheight: 0,
             objs: {
                 container: document.querySelector('#scroll-section-3'),
                 canvasCaption: document.querySelector('.canvas-caption'),
@@ -194,7 +194,6 @@
             case 0:
                 let sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
                 objs.context.drawImage(objs.videoImages[sequence], 0, 0);
-                objs.context.fillStyle = 'white';
                 objs.canvas.style.opacity = calcValues(values.canvas_opacity, currentYOffset);
 
                 if (scrollRatio <= 0.22) {
@@ -290,15 +289,16 @@
                 let canvasScaleRatio;
 
                 if (widthRatio <= heightRatio) {
-                    // 캔버스보다 브라우저 창이 혹쭉한 경우
+                    // 캔버스보다 브라우저 창이 홀쭉한 경우
                     canvasScaleRatio = heightRatio;
                 } else {
                     // 캔버스보다 브라우저 창이 납작한 경우
                     canvasScaleRatio = widthRatio;
                 }
 
-                objs.canvas.style.transform = `scale(${canvasScaleRatio})`
-                objs.context.drawImage(objs.images[0], 0, 0)
+                objs.canvas.style.transform = `scale(${canvasScaleRatio})`;
+                objs.context.fillStyle = 'white';
+                objs.context.drawImage(objs.images[0], 0, 0);
 
                 // 캔버스 사이즈에 맞춰 가정한 innerwidth와 innerHeight
                 // innerWidth -> scroll영역 때문에 계산이 잘 안맞음
@@ -309,7 +309,6 @@
                     // getBoundingClientRect() canvas의 크기 정보
                     // values.rectStartY = objs.canvas.getBoundingClientRect().top;
                     values.rectStartY = objs.canvas.offsetTop + (objs.canvas.height - objs.canvas.height * canvasScaleRatio) / 2;
-                    console.log(values.rectStartY)
                     values.rect1X[2].start = (window.innerHeight / 2) / scrollHeight;
                     values.rect2X[2].start = (window.innerHeight / 2) / scrollHeight;
                     values.rect1X[2].end = values.rectStartY / scrollHeight;
@@ -317,31 +316,41 @@
                 }
 
                 const whiteRectWidth = recalculatedInnerWidth * 0.15;
-                values.rect1X[0] = (objs.canvas.width - recalculatedInnerWidth) / 2; // 첫 화이트 박스 시작 위치
-                values.rect1X[1] = values.rect1X[0] - whiteRectWidth; // 첫 화이트 박스 끝 위치
+                values.rect1X[0] = (objs.canvas.width - recalculatedInnerWidth) / 2;
+                values.rect1X[1] = values.rect1X[0] - whiteRectWidth;
                 values.rect2X[0] = values.rect1X[0] + recalculatedInnerWidth - whiteRectWidth;
                 values.rect2X[1] = values.rect2X[0] + whiteRectWidth;
 
                 // 좌우 흰색 박스 그리기
                 // objs.context.fillRect(values.rect1X[0], 0, parseInt(whiteRectWidth), objs.canvas.height)
                 // objs.context.fillRect(values.rect2X[0], 0, parseInt(whiteRectWidth), objs.canvas.height)
-                objs.context.fillRect(parseInt(calcValues(values.rect1X, currentYOffset)), 0, parseInt(whiteRectWidth), objs.canvas.height);
-                objs.context.fillRect(parseInt(calcValues(values.rect2X, currentYOffset)), 0, parseInt(whiteRectWidth), objs.canvas.height);
+                objs.context.fillRect(
+                    parseInt(calcValues(values.rect1X, currentYOffset)),
+                    0,
+                    Math.round(whiteRectWidth),
+                    objs.canvas.height
+                );
+                objs.context.fillRect(
+                    parseInt(calcValues(values.rect2X, currentYOffset)),
+                    0,
+                    Math.round(whiteRectWidth),
+                    objs.canvas.height
+                );
 
                 break;
         }
     }
 
     function calcValues(values, currentYOffset) {
-        let rv
+        let rv;
+        // 현재 씬(스크롤섹션)에서 스크롤된 범위를 비율로 구하기
         const scrollHeight = scenInfo[currentScene].scrollheight;
-        // 현재 씬(스코롤섹션)에서 스크롤된 범위를비율로 구하기
         const scrollRatio = currentYOffset / scrollHeight;
+
         if (values.length === 3) {
             // start ~ end 사이에 애니메이션 실행
             const partScrollStart = values[2].start * scrollHeight;
             const partScrollEnd = values[2].end * scrollHeight;
-            // start end 사이 height
             const partScrollHeight = partScrollEnd - partScrollStart;
 
             if (currentYOffset >= partScrollStart && currentYOffset <= partScrollEnd) {
@@ -351,11 +360,9 @@
             } else if (currentYOffset > partScrollEnd) {
                 rv = values[1];
             }
-
         } else {
             rv = scrollRatio * (values[1] - values[0]) + values[0];
         }
-
 
         return rv;
     }
