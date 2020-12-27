@@ -79,6 +79,9 @@ a {
 
 /*vh : 사용자 화면의 50%를 padding주겠다.*/
 .scroll-section {
+    /*위치의 기준이 전체 DOM이 아닌 부모가 기준이 되도록 */
+    /* 부모 : scroll-section 자식 : canvas*/
+    /* scroll 시 offset*/
     position: relative;
     padding-top: 50vh;
 }
