@@ -335,7 +335,7 @@
                 const widthRatio = window.innerWidth / objs.canvas.width;
                 const heightRatio = window.innerHeight / objs.canvas.height;
                 let canvasScaleRatio;
-
+                let step = 1;
                 if (widthRatio <= heightRatio) {
                     // 캔버스보다 브라우저 창이 홀쭉한 경우
                     canvasScaleRatio = heightRatio;
@@ -385,6 +385,23 @@
                     objs.canvas.height
                 );
 
+            //     if (캔버스가 블우저 상단에 닿지 않았다면) {
+            //         step = 1;
+            // } else {
+            //         step = 2;
+            //         if() {
+            //             step = 3;
+            //         }
+            // }
+                if (scrollRatio < values.rect1X[2].end) {
+                    step = 1;
+                    objs.canvas.classList.remove('sticky');
+                } else {
+                    step = 2;
+                    // 이미지 블랜드
+                    objs.canvas.classList.add('sticky');
+                    objs.canvas.style.top = `${-(objs.canvas.height - objs.canvas.height * canvasScaleRatio) / 2}px`
+                }
                 break;
         }
     }

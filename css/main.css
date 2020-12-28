@@ -201,8 +201,10 @@ a {
     width: 100%;
 }
 
-.img-blend-canvas {
+.img-blend-canvas.sticky {
      /*background-color: #888888;*/
+    position: fixed;
+    top: 0;
 }
 
 #scroll-section-3 {
